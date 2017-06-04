@@ -1,0 +1,61 @@
+﻿@model Room.ViewModels.ExpenseViewModel
+
+<form asp-action="AddExpense" role="form">
+
+    <div class="modal-body form-horizontal">
+        <div class="form-group">
+            <label asp-for="Date" class="col-lg-3 col-sm-3 control-label"></label>
+            <div class="col-lg-6">
+                <input asp-for="Date" class="form-control" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="UserId" class="col-lg-3 col-sm-3 control-label"></label>
+            <div class="col-lg-6">
+                <select asp-for="UserId" class="form-control" asp-items="@Model.ListUsers">
+                    <option>Select Role</option>
+                </select>
+                <span asp-validation-for="UserId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Amount" class="col-lg-3 col-sm-3 control-label"></label>
+            <div class="col-lg-6">
+                <input asp-for="Amount" class="form-control" />
+                <span asp-validation-for="Amount" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Description" class="col-lg-3 col-sm-3 control-label"></label>
+            <div class="col-lg-6">
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Users" class="col-lg-3 col-sm-3 control-label"></label>
+            <div class="col-lg-6">
+              <ul>
+                  @for(var i=0;i<Model.ListUsers.Count;i++)
+                  {
+                      <li>
+                          <input type="checkbox" asp-for="@Model.ListUsers[i].Selected" />
+                          <label asp-for="@Model.ListUsers[i].Selected">@Model.ListUsers[i].Text</label>
+                          <input type="hidden" asp-for="@Model.ListUsers[i].Value" />
+                          <input type="hidden" asp-for="@Model.ListUsers[i].Text" />   
+                      </li>
+
+                  }
+              </ul>
+            </div>
+        </div>
+
+       
+        <div class="pull-right">
+            <button type="submit" class="btn btn-success" id="btnSubmit">Add Expense</button>
+        </div>
+    </div>
+</form>
