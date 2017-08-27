@@ -30,11 +30,11 @@ namespace Room.Controllers
                 {
                     obj = new UserViewModel { UserId = objuser.UserId, UserName = objuser.UserName, Email = objuser.Email, Mobile = objuser.Mobile, RoleId = objuser.RoleId };
                     obj.Roles = _context.Roles.Select(o => new SelectListItem { Value = o.RoleId.ToString(), Text = o.RoleName }).ToList();
-                   
+
                     return View(obj);
 
                 }
-              
+
 
             }
             obj = new UserViewModel();
@@ -44,9 +44,10 @@ namespace Room.Controllers
 
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult AddUser(UserViewModel user)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 Room.Database.User objnewUser = new Database.User { UserName = user.UserName, Email = user.Email, Mobile = user.Mobile, RoleId = user.RoleId };
                 _context.Users.Add(objnewUser);
@@ -69,7 +70,7 @@ namespace Room.Controllers
                 Expense objuser = _context.Expenses.Where(m => m.ExpenseId == id).SingleOrDefault();
                 if (objuser != null)
                 {
-                    obj = new ExpenseViewModel { ExpenseId= objuser.ExpenseId, UserId = objuser.UserId, Description = objuser.Description, Users = objuser.Users };
+                    obj = new ExpenseViewModel { ExpenseId = objuser.ExpenseId, UserId = objuser.UserId, Description = objuser.Description };
                     obj.ListUsers = _context.Users.Select(o => new SelectListItem { Value = o.UserId.ToString(), Text = o.UserName }).ToList();
 
                     return View(obj);
@@ -82,7 +83,20 @@ namespace Room.Controllers
             obj.ListUsers = _context.Users.Select(o => new SelectListItem { Value = o.UserId.ToString(), Text = o.UserName }).ToList();
             return View(obj);
         }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult AddExpense(ExpenseViewModel expense)
+        {
+            if (ModelState.IsValid)
+            {
+
+                Room.Database.Expense objExpense = new Expense { UserId= expense.UserId,Amount=expense.Amount,Description=expense.Description};
+            }
+            return View();
         }
+    }
 
 
 }

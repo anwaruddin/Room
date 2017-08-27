@@ -12,8 +12,9 @@ namespace Room.ViewModels
     {
 
         public int ExpenseId { get; set; }
-
+        [Required(ErrorMessage = "Date is Required")]
         public DateTime Date { get; set; }
+        [Required(ErrorMessage = "User is Required")]
         public int UserId { get; set; }
         [Required(ErrorMessage = "Amount is Required")]
         [DisplayName("Amount")]
@@ -24,12 +25,10 @@ namespace Room.ViewModels
         public string Description { get; set; }
 
 
-        [Required(ErrorMessage = "Users is Required")]
+        [Range(typeof(bool), "true", "true", ErrorMessage = "You gotta tick the box!")]
         [DisplayName("User Name")]
-
-        public string Users { get; set; }
-
-
         public List<SelectListItem> ListUsers { get; set; }
+      
+
     }
 }

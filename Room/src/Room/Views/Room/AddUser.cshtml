@@ -1,13 +1,16 @@
 ﻿@model Room.ViewModels.UserViewModel
 
-
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
 <form asp-action="AddUser" role="form">
+    @Html.AntiForgeryToken()
+
     <div class="modal-body form-horizontal">
         <div class="form-group">
             <label asp-for="UserName" class="col-lg-3 col-sm-3 control-label"></label>
             <div class="col-lg-6">
                 <input asp-for="UserName" class="form-control" />
-               <span asp-validation-for="UserName" class="text-danger"></span>
+                <span asp-validation-for="UserName" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
@@ -29,14 +32,16 @@
         <div class="form-group">
             <label asp-for="RoleId" class="col-lg-3 col-sm-3 control-label"></label>
             <div class="col-lg-6">
-               <select asp-for="RoleId" class="form-control" asp-items="@Model.Roles" >
-                   <option>Select Role</option>
-               </select>
+                <select asp-for="RoleId" class="form-control" asp-items="@Model.Roles">
+                    <option value="">Select Role</option>
+                </select>
                 <span asp-validation-for="RoleId" class="text-danger"></span>
             </div>
         </div>
-        <div class="pull-right">
+        <div class="form-group text-center">
             <button type="submit" class="btn btn-success" id="btnSubmit">Add User</button>
         </div>
     </div>
+
+
 </form>
